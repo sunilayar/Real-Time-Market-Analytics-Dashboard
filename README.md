@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PulseGrid Terminal
 
-## Getting Started
+Real-time market analytics dashboard built with Next.js, Socket.IO, Lightweight Charts, and TradingView widgets.
 
-First, run the development server:
+## Included
+
+- Multi-asset coverage for `NSE`, `BSE`, `US Stocks`, `Crypto`, `Forex`, and `Indices`
+- Live dashboard updates over WebSockets
+- Candlestick visualization with volume overlay
+- Technical indicators:
+  - `RSI`
+  - `MACD`
+  - `EMA / SMA`
+  - `Bollinger Bands`
+  - `Volume Analysis`
+  - `Support / Resistance`
+- TradingView advanced chart embed with built-in studies
+- Timeframe filters: `1m`, `5m`, `15m`, `1H`, `1D`, `1W`
+- AI-style buy/sell recommendation engine
+- Search, watchlist, favorites, alerts
+- Portfolio tracking and unrealized P&L analytics
+- Market heatmap, sentiment panel, strategy backtest snapshot, paper trading readiness
+- Dark and light mode responsive trading interface
+
+## Stack
+
+- Frontend: `Next.js 16`, `React 19`, `Tailwind CSS 4`
+- Real-time Engine: `Socket.IO`
+- Charting: `TradingView Widget`, `lightweight-charts`
+- Runtime: custom `Node` server for websocket streaming
+
+## Local Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Architecture Notes
 
-To learn more about Next.js, take a look at the following resources:
+- [`server.mjs`](/c:/Users/sunil/OneDrive/Desktop/StockPlotter/server.mjs) hosts Next.js and emits live market ticks over Socket.IO.
+- [`src/components/trading-dashboard.tsx`](/c:/Users/sunil/OneDrive/Desktop/StockPlotter/src/components/trading-dashboard.tsx) drives the multi-panel terminal UI.
+- [`src/components/live-candlestick-chart.tsx`](/c:/Users/sunil/OneDrive/Desktop/StockPlotter/src/components/live-candlestick-chart.tsx) renders the live candlestick + volume chart.
+- [`src/components/tradingview-widget.tsx`](/c:/Users/sunil/OneDrive/Desktop/StockPlotter/src/components/tradingview-widget.tsx) embeds TradingView with live studies.
+- [`src/lib/market.ts`](/c:/Users/sunil/OneDrive/Desktop/StockPlotter/src/lib/market.ts) contains market universe data, indicator calculations, and AI recommendation logic.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## TradingView Integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This implementation embeds the public TradingView advanced chart widget for live visual market context.
 
-## Deploy on Vercel
+The internal websocket feed currently uses simulated streaming market data so the app is runnable without credentials. For production deployment, replace the in-memory stream with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- a licensed market data provider
+- broker/exchange websocket feeds
+- TradingView-compatible market data infrastructure where your agreement allows it
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Recommended Next Production Steps
+
+1. Add authentication with `JWT` or `OAuth`.
+2. Persist watchlists, portfolio, alerts, and paper trades in `PostgreSQL` or `Supabase`.
+3. Replace the simulated websocket engine with real exchange or broker feeds.
+4. Add server-side alert rules, order simulation, and backtesting jobs.
+5. Connect news and sentiment providers for live NLP-based scoring.
