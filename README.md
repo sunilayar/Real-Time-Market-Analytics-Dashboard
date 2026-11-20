@@ -70,3 +70,4 @@ The internal websocket feed currently uses simulated streaming market data so th
 3. Replace the simulated websocket engine with real exchange or broker feeds.
 4. Add server-side alert rules, order simulation, and backtesting jobs.
 5. Connect news and sentiment providers for live NLP-based scoring.
+https://analyticdashboardv10.vercel.app/
